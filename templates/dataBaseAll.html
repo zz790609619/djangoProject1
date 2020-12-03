@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table style="border: aliceblue" >
+    {% for i in result %}
+        <tr>
+            <td>表名：</td>
+            <td>{{ i.name }}</td>
+            <td>数据库数：</td>
+            <td>{{ i.db }}</td>
+            <td>表数：</td>
+            <td>{{ i.size }}</td>
+        </tr>
+    {% endfor %}
+
+</table>
+</body>
+</html>
+
+{#views里返回数据为例：#}
+{#renturn render(request,'xxx.html',{'obj':123,'k1':[1,2,3,4],'k2':{'name':'yooma','age':'88'}}#}
+{##}
+{#<html>#}
+{#获取单个数据#}
+{#{{ obj }}#}
+{#{{k1.3}}#}
+{#{{k2.name}}#}
+{##}
+{#获取多个数据#}
+{#{% for i in k1 %}#}
+{#    {{i}}#}
+{#{% endfor %}#}
+{##}
+{#获取k2字典内所有的key#}
+{#{% for row in k2.keys %}#}
+{#    {{row}}#}
+{#{% endfor %}#}
+{##}
+{#获取k2字典内所有的value#}
+{#{% for row in k2.values %}#}
+{#    {{row}}#}
+{#{% endfor %}#}
+{##}
+{#获取k2字典内的key和value#}
+{#{% for k,v in k2.items %}#}
+{#    {{k}}-{{v}}#}
+{#{% endfor %}#}
+{##}
+{#</html>#}
