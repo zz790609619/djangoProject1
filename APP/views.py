@@ -78,3 +78,14 @@ def init(request):
         if table is None:
             models.BaseTable.objects.create(tableName=i.name.strip(), db=i.db, size=i.size)
     return HttpResponse("ok")
+
+
+def calAllTablePath(request, searchId):
+    tableAll = models.BaseTable.objects.all()
+    result = []
+    for i in tableAll:
+        db = int(searchId / i.size)
+        db = db % i.db
+        tableNum = id % i.size
+        result.append(Table(i.tableName, db, tableNum))
+    return render(request, "../templates/dataBaseAll.html", {"result": result})

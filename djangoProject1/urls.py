@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    # 不能/开头
+    #  多个相同路由按照从上到下执行
+    # admin路由
     path('admin/', admin.site.urls),
+    # 子项目路由 path(默认路由开头, include(子项目路由文件)),
     path('', include('APP.urls')),
 ]
