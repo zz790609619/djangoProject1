@@ -36,9 +36,13 @@ def calAllTable(request):
     result = []
     ids = int(request.GET.get("id"))
     for i in table:
-        db = int(ids / i.size)
-        db = db % i.db
-        tableNum = ids % i.size
+        if i.size is not None:
+            db = int(ids / i.size)
+            db = db % i.db
+            tableNum = ids % i.size
+        else:
+            tableNum = 1
+            db = ids % i.db
         result.append(Table(i.tableName, db, tableNum))
     return render(request, "../templates/dataBaseAll.html", {"result": result})
 
@@ -82,12 +86,16 @@ def init(request):
     return HttpResponse("ok")
 
 
-def calAllTablePath(request, searchId):
+def calAllTablePath(request, id):
     tableAll = models.BaseTable.objects.all()
     result = []
     for i in tableAll:
-        db = int(searchId / i.size)
-        db = db % i.db
-        tableNum = id % i.size
+        if i.size is not None:
+            db = int(id / i.size)
+            db = db % i.db
+            tableNum = id % i.size
+        else:
+            tableNum = 1
+            db = id % i.db
         result.append(Table(i.tableName, db, tableNum))
     return render(request, "../templates/dataBaseAll.html", {"result": result})
