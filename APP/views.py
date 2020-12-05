@@ -19,13 +19,15 @@ def add(request):
 # Create your views here.
 def calOneTable(request):
     table = models.BaseTable.objects.get(tableName=request.GET.get("tableName"))
-
-
     if table is not None:
         ids = int(request.GET.get("id"))
-        db = int(ids / table.size)
-        db = db % table.db
-        tableNum = ids % table.size
+        if table.size is not None:
+            db = int(ids / table.size)
+            db = db % table.db
+            tableNum = ids % table.size
+        else:
+            tableNum = 1
+            db = ids % table.db
         return render(request, "../templates/dataBase.html", {"database": str(db), "tables": str(tableNum)})
     return HttpResponse("ok")
 
