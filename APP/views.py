@@ -19,6 +19,8 @@ def add(request):
 # Create your views here.
 def calOneTable(request):
     table = models.BaseTable.objects.get(tableName=request.GET.get("tableName"))
+
+
     if table is not None:
         ids = int(request.GET.get("id"))
         db = int(ids / table.size)
@@ -63,7 +65,7 @@ def init(request):
     tables.append(Table("merchant_with_drawal", 4, 4))
     tables.append(Table("merchant_powder", 4, 4))
     tables.append(Table("merchant_ganged", 4, 4))
-    tables.append(Table("merchant_day_record", 4, 4))
+    tables.append(Table("merchant_day_record", 4, 30))
     tables.append(Table("merchant_user_coupon", 4, 8))
     tables.append(Table("user_pay_coupon", 4, 15))
     tables.append(Table("user_pay_enjoyment", 4, 15))
