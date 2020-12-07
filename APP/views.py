@@ -1,10 +1,36 @@
-from django.http import HttpResponse
+import json
+
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
 from APP import models
 from APP.tables.table import Table
 
 tables = []
+
+
+# 测试get和post
+#
+def testGetData(request):
+    # 127.0.0.1:8080/testGetData?name=ww
+    if request.method == 'GET':
+        # 获取get请求头的数据 request.Get.get('name')=ww
+        print(request.GET.get("address"))
+        # 转成字典
+        request.GET.dict()
+    elif request.method == 'POST':
+        # 获取post请求
+        if request.content_type == 'multipart/form-data':
+            print(request.POST.get('name'))
+        elif request.content_type == 'application/x-www-form-urlencoded':
+            print(request.POST.get('name'))
+        elif request.content_type == 'application/json':
+            data = json.loads(request.body)
+            print(data["name"])
+            return JsonResponse(data)
+        elif request.content_type == 'text/csv':
+            print(request.POST.get('name'))
+    return HttpResponse("ok")
 
 
 # Create your views here.
