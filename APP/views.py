@@ -2,6 +2,7 @@ import json
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 from APP import models
 from APP.tables.table import Table
@@ -10,7 +11,11 @@ tables = []
 
 
 # 测试get和post
-#
+# post访问能调通后台
+# 1.@csrf_exempt 被标记的方法不需要csrf验证
+# 2. 注释setting中的 'django.middleware.csrf.CsrfViewMiddleware'
+# 3. 前端页面增加{% csrf_token %}
+@csrf_exempt
 def testGetData(request):
     # 127.0.0.1:8080/testGetData?name=ww
     if request.method == 'GET':
@@ -20,6 +25,7 @@ def testGetData(request):
         request.GET.dict()
     elif request.method == 'POST':
         # 获取post请求
+        # 如果是post请求 html应该带有{% csrf_token %}
         if request.content_type == 'multipart/form-data':
             print(request.POST.get('name'))
         elif request.content_type == 'application/x-www-form-urlencoded':
